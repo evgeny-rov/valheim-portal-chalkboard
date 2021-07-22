@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { db, Portal } from './services/firebase';
 
 function App() {
+  useEffect(() => {
+    db.portals.onSnapshot((snap) => {
+      const portals: Portal[] = [];
+      snap.forEach((entry) => portals.push(entry.data()));
+      console.log(portals);
+    });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
