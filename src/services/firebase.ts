@@ -1,11 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/firestore';
-
-export type Portal = {
-  tag: string;
-  comment: string;
-};
+import { Portal } from '../types';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDFdJRklJShYnFt1sWjbH2BJFCC38X_Ul8',
