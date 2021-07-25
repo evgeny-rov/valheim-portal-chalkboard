@@ -4,11 +4,11 @@
 
 @layer base {
   * {
-    @apply m-0 p-0 box-border;
+    @apply m-0 p-0 box-border font-custom text-white;
   }
 
   html {
-    @apply bg-gray-800;
+    @apply bg-gray-900;
   }
 }
 
@@ -17,7 +17,15 @@
     @apply bg-transparent text-white;
   }
 
-  .grid_layout {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  .grid_layout_header {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .grid_layout_unconnected {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .grid_layout_connected {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 }

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { db } from './services/firebase';
 import Header from './components/Header';
 import Portal from './components/Portal';
-import { PortalEntry, SortedPortals } from './types';
+import { PortalEntry } from './types';
 import theGreatSorter from './utils/theGreatSorter';
+
+import chainlink from './assets/link.svg';
+import ChainLink from './components/ChainLink';
 
 const mockedData: PortalEntry = {
   id: 'ff',
@@ -18,54 +21,51 @@ const Pair = ({ portals }: { portals: [PortalEntry, PortalEntry] }) => {
   return (
     <div className="flex flex-col justify-center items-center">
       <Portal portalData={firstPortal} />
-      <div className="w-2 h-10 bg-red-600 rounded-md flex-shrink-0"></div>
+      {/* <div className="w-2 h-10 bg-red-600 rounded-md flex-shrink-0"></div> */}
+      <ChainLink />
       <Portal portalData={secondPortal} />
     </div>
   );
 };
 
 function App() {
-  const [portalsData, setPortalsData] = useState<SortedPortals>({
-    unconnectedPortals: [],
-    connectedPortalsPairs: [],
-  });
-
-  console.log(portalsData)
+  const [unconnectedPortals, setUnconnectedPortals] = useState<PortalEntry[]>(
+    []
+  );
+  const [connectedPortals, setConnectedPortals] = useState<
+    Array<[PortalEntry, PortalEntry]>
+  >([]);
 
   useEffect(() => {
-    db.portals.onSnapshot((snap) => {
+    const unsubscribe = db.portals.onSnapshot((snap) => {
       const portals: PortalEntry[] = [];
       snap.forEach((entry) => portals.push({ id: entry.id, ...entry.data() }));
-      setPortalsData(theGreatSorter(portals));
+      const sortedPortals = theGreatSorter(portals);
+      setConnectedPortals(sortedPortals.connectedPortalsPairs);
+      setUnconnectedPortals(sortedPortals.unconnectedPortals);
     });
+
+    return () => unsubscribe();
   }, []);
 
   return (
     <div className="">
       <Header />
-      <main className="p-10">
-        <section className="my-10">
-          <div>
-            <h1 className="text-white text-4xl font-bold">
-              Непривязанные порталы
-            </h1>
-            <ul className="my-10 grid grid-cols-10 sm:grid-cols-2 md:grid-cols-8 gap-6">
-              {portalsData.unconnectedPortals.map((portalData) => (
-                <Portal key={portalData.id} portalData={portalData} />
-              ))}
-            </ul>
+      <main className="p-10 grid gap-14">
+        <section className="grid gap-14">
+          <h1 className="text-4xl text-center">Непривязанные порталы</h1>
+          <div className="grid grid_layout_unconnected gap-12">
+            {unconnectedPortals.map((portalData) => (
+              <Portal key={portalData.id} portalData={portalData} />
+            ))}
           </div>
         </section>
-        <section className="my-10">
-          <div>
-            <h1 className="text-white text-4xl font-bold">
-              Привязанные порталы
-            </h1>
-            <ul className="my-10 grid grid_layout gap-32">
-              {portalsData.connectedPortalsPairs.map((portals, idx) => (
-                <Pair key={idx} portals={portals} />
-              ))}
-            </ul>
+        <section className="grid gap-14">
+          <h1 className="text-4xl text-center">Привязанные порталы</h1>
+          <div className="grid grid_layout_connected gap-20">
+            {connectedPortals.map((portals, idx) => (
+              <Pair key={portals[0].id + portals[1].id} portals={portals} />
+            ))}
           </div>
         </section>
       </main>

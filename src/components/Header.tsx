@@ -4,40 +4,50 @@ import { db } from '../services/firebase';
 const Header = () => {
   const [commentText, setCommentText] = useState('');
   const [tagText, setTagText] = useState('');
-  const handleSubmit = () => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     db.portals.add({
       tag: tagText,
       comment: commentText,
       updatedAt: Date.now(),
     });
+
     setCommentText('');
     setTagText('');
   };
 
   return (
-    <header className="sticky h-20 flex justify-center items-center space-x-6 text-white">
-      <input
-        type="text"
-        name="tag"
-        value={tagText}
-        onChange={(e) => setTagText(e.target.value)}
-        placeholder="Тэг"
-        className="rounded-md p-2 bg-transparent border"
-      />
-      <input
-        type="text"
-        name="comment"
-        value={commentText}
-        onChange={(e) => setCommentText(e.target.value)}
-        placeholder="Комментарий"
-        className="rounded-md p-2 bg-transparent border"
-      />
-      <button
-        className="text-white font-bold font-mono text-lg"
-        onClick={handleSubmit}
+    <header className="sticky p-4 top-0 bg-gray-900 z-50">
+      <form
+        action="#"
+        className="grid grid_layout_header gap-6 place-items-center"
+        onSubmit={handleSubmit}
       >
-        Добавить
-      </button>
+        <p className="text-lg">Новый портал</p>
+        <input
+          type="text"
+          name="tag"
+          value={tagText}
+          onChange={(e) => setTagText(e.target.value)}
+          placeholder="Тэг"
+          required
+          className="rounded-md p-2 bg-transparent border"
+        />
+        <input
+          type="text"
+          name="comment"
+          value={commentText}
+          onChange={(e) => setCommentText(e.target.value)}
+          placeholder="Комментарий"
+          required
+          className="rounded-md p-2 bg-transparent border"
+        />
+        <button type="submit" className="text-lg hover:text-gray-500">
+          Добавить
+        </button>
+      </form>
     </header>
   );
 };
