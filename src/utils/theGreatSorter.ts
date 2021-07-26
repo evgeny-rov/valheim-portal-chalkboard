@@ -8,14 +8,14 @@ const theGreatSorter = (portals: PortalEntry[]) => {
     connectedPortalsPairs: [],
   };
 
-  const portalsSortedByTimestamp = portals.sort(
+  const portalsOrderedByUpdateRelevance = portals.sort(
     (p1, p2) => p1.updatedAt - p2.updatedAt
   );
 
-  for (const portal of portalsSortedByTimestamp) {
+  for (const portal of portalsOrderedByUpdateRelevance) {
     if (foundPairs.has(portal.id)) continue;
 
-    const pair = portalsSortedByTimestamp.find(
+    const pair = portalsOrderedByUpdateRelevance.find(
       (portalPair) =>
         portal.tag === portalPair.tag &&
         !foundPairs.has(portalPair.id) &&
@@ -38,34 +38,6 @@ const theGreatSorter = (portals: PortalEntry[]) => {
   }
 
   return sortedPortals;
-
-  // return portals
-  //   .sort((p1, p2) => p1.updatedAt - p2.updatedAt)
-  //   .reduce<SortedPortals>(
-  //     (acc, item, idx, array) => {
-  //       const pair = array.find(
-  //         (portal) => item.tag === portal.tag && !foundPairs.has(portal.id)
-  //       );
-
-  //       if (!pair || item.id === pair.id && foundPairs.has(item.id)) {
-  //         acc.unconnectedPortals = [...acc.unconnectedPortals, item];
-  //       } else {
-  //         foundPairs.add(pair.id);
-  //         foundPairs.add(item.id);
-
-  //         acc.connectedPortalsPairs = [
-  //           ...acc.connectedPortalsPairs,
-  //           [item, pair],
-  //         ];
-  //       }
-
-  //       return acc;
-  //     },
-  //     {
-  //       unconnectedPortals: [],
-  //       connectedPortalsPairs: [],
-  //     }
-  //   );
 };
 
 export default theGreatSorter;

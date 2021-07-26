@@ -8,7 +8,9 @@ export interface PortalEntry extends Portal {
   id: string;
 }
 
+export type PortalsPair = [PortalEntry, PortalEntry];
+
 export type SortedPortals = {
   unconnectedPortals: PortalEntry[];
-  connectedPortalsPairs: Array<[PortalEntry, PortalEntry]>;
+  connectedPortalsPairs: Array<PortalsPair>;
 };

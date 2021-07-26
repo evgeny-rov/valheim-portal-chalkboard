@@ -4,8 +4,8 @@ const ChainLink = () => {
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
       width="100px"
-      height="100px"
-      viewBox="0 0 640.000000 800.000000"
+      height="50px"
+      viewBox="0 0 640.000000 600.000000"
       preserveAspectRatio="xMidYMid meet"
     >
       <metadata>
@@ -13,7 +13,7 @@ const ChainLink = () => {
       </metadata>
       <g
         transform="translate(0.000000, 1280.000000) scale(0.100000,-0.100000)"
-        fill="#364b46"
+        fill="#88daa7"
         stroke="none"
       >
         <path

@@ -26,7 +26,7 @@ const Portal = ({ portalData: { id, updatedAt, comment, tag } }: Props) => {
   };
 
   return (
-    <div className="relative grid place-items-center rounded-full p-4 h-60 w-60 shadow-custom-green">
+    <div className="relative grid place-items-center rounded-full p-2 h-52 w-52 shadow-custom-green">
       <div className="absolute w-full h-full z-0 rounded-full overflow-hidden">
         <img
           src={portal}
@@ -37,12 +37,12 @@ const Portal = ({ portalData: { id, updatedAt, comment, tag } }: Props) => {
       <div className="flex flex-col justify-between items-center w-full h-full z-10">
         <button
           type="button"
-          className="text-xl p-1 hover:text-gray-500"
+          className="text-lg p-1 hover:text-gray-500"
           onClick={handleRemove}
         >
           x
         </button>
-        <div className="grid gap-4 text-center">
+        <div className="grid gap-2 text-center">
           <div className="grid grid-flow-row gap-1">
             <label>Тэг:</label>
             <input

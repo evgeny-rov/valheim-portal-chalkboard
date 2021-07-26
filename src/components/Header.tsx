@@ -19,11 +19,11 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky p-4 top-0 bg-gray-900 z-50">
+    <header className="p-4 top-0 grid place-items-center">
       <form
         action="#"
-        className="grid grid_layout_header gap-6 place-items-center"
         onSubmit={handleSubmit}
+        className="grid grid_layout_header gap-6 place-items-center sm:grid-flow-col"
       >
         <p className="text-lg">Новый портал</p>
         <input
